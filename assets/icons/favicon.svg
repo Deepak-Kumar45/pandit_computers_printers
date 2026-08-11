@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="#2A4695"/>
+  <!-- Pen nib body -->
+  <path fill="#ffffff" d="M32 14 C32 14 24 22 24 30 L28 34 L32 50 L36 34 L40 30 C40 22 32 14 32 14Z"/>
+  <!-- Nib split line -->
+  <line x1="32" y1="28" x2="32" y2="50" stroke="#2A4695" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Nib collar top -->
+  <rect x="27" y="34" width="10" height="3" rx="1" fill="#2A4695" opacity="0.35"/>
+  <rect x="27" y="39" width="10" height="3" rx="1" fill="#2A4695" opacity="0.25"/>
+  <!-- CMYK dots -->
+  <circle cx="20" cy="18" r="4" fill="#FFED00"/>   <!-- Yellow -->
+  <circle cx="44" cy="14" r="4" fill="#00A0E3"/>   <!-- Cyan -->
+  <circle cx="48" cy="28" r="4" fill="#E5097F"/>   <!-- Magenta -->
+  <circle cx="16" cy="30" r="4" fill="#2B2A29"/>   <!-- Black -->
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <!-- Pen nib icon -->
+  <g transform="translate(0, 4)">
+    <!-- Bezier curve lines (dashed) -->
+    <path d="M18 42 Q32 8 50 18" stroke="#2A4695" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+    <path d="M50 18 Q68 28 72 14" stroke="#2A4695" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+    <!-- CMYK dots -->
+    <circle cx="15" cy="44" r="5" fill="#FFED00"/>
+    <circle cx="74" cy="12" r="5" fill="#00A0E3"/>
+    <circle cx="66" cy="32" r="5" fill="#E5097F"/>
+    <circle cx="28" cy="8"  r="5" fill="#2B2A29"/>
+    <!-- Center anchor dot -->
+    <circle cx="50" cy="18" r="5" fill="#2A4695"/>
+    <!-- Pen nib -->
+    <path d="M50 18 L44 32 L50 56 L56 32 Z" fill="#2A4695"/>
+    <path d="M50 28 L50 56" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+    <rect x="44" y="34" width="12" height="3" rx="1" fill="#1a3070" opacity="0.6"/>
+    <rect x="44" y="39" width="12" height="3" rx="1" fill="#1a3070" opacity="0.4"/>
+  </g>
+  <!-- Brand text -->
+  <text x="90" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#2A4695" font-style="italic">Pandit</text>
+  <text x="90" y="46" font-family="'Arial', sans-serif" font-size="13" font-weight="700" fill="#2A4695" letter-spacing="0.5">Computers &amp; Printers</text>
+  <text x="90" y="58" font-family="'Arial', sans-serif" font-size="8" fill="#555" font-style="italic" letter-spacing="0.3">....Perfect Printing for Perfect Business</text>
+</svg>

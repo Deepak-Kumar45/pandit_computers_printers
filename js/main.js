@@ -107,26 +107,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function scoreMatch(service, query) {
     const q = query.trim().toLowerCase();
-    if (!q) return 1; // show all when empty
+    if (!q) return 1;
     const name = service.name.toLowerCase();
-    const kw = (service.keywords || '').toLowerCase();
-    if (name.startsWith(q)) return 3;
-    if (name.includes(q)) return 2;
-    if (kw.includes(q)) return 1;
+    const tags = (service.tags || '').toLowerCase();
+    const cat  = (service.cat  || '').toLowerCase();
+    if (name.startsWith(q)) return 4;
+    if (name.includes(q))   return 3;
+    if (cat.includes(q))    return 2;
+    if (tags.includes(q))   return 1;
     return 0;
   }
 
   function renderResults(query) {
-    if (!searchResults || typeof SERVICE_INDEX === 'undefined') return;
+    if (!searchResults || typeof serviceSearchData === 'undefined') return;
     const q = query.trim();
-    let matches = SERVICE_INDEX
+    let matches = serviceSearchData
       .map(s => ({ s, score: scoreMatch(s, q) }))
       .filter(m => m.score > 0)
-      .filter(m => !activeChip || m.s.category === activeChip)
+      .filter(m => !activeChip || m.s.cat.includes(activeChip))
       .sort((a, b) => b.score - a.score)
       .map(m => m.s);
 
-    if (!q && !activeChip) matches = matches.slice(0, 8); // show a curated default set
+    if (!q && !activeChip) matches = matches.slice(0, 9);
 
     activeIndex = -1;
 
@@ -135,26 +137,22 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="search-empty">
           <div class="search-empty-icon">🔍</div>
           <p>No service matches "<strong>${escapeHtml(q)}</strong>"</p>
-          <a href="contact.html#quote-form" class="btn-primary btn-sm mt-16">Ask Us Directly →</a>
+          <a href="contact.html#contact-form" class="btn-primary btn-sm mt-16">Ask Us Directly →</a>
         </div>`;
       return;
     }
 
     searchResults.innerHTML = matches.map((s, i) => `
-      <a class="search-result-item" href="${s.page}#${s.id}" data-index="${i}">
-        <div class="sri-icon">${s.icon}</div>
+      <a class="search-result-item" href="${s.link}" data-index="${i}">
         <div class="sri-body">
           <div class="sri-name">${highlightMatch(s.name, q)}</div>
-          <div class="sri-meta"><span class="sri-cat">${s.category}</span> · <span class="sri-price">${s.price}</span></div>
+          <div class="sri-meta"><span class="sri-cat">${s.cat}</span></div>
         </div>
         <div class="sri-arrow">→</div>
       </a>`).join('');
 
     searchResults.querySelectorAll('.search-result-item').forEach(item => {
-      item.addEventListener('click', () => {
-        // Let the link navigate normally to page#id, then close overlay.
-        closeSearch();
-      });
+      item.addEventListener('click', () => { closeSearch(); });
     });
   }
 

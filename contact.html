@@ -9,6 +9,8 @@
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="shortcut icon" href="assets/icons/favicon.svg">
 <link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("31i1UCtTQr-6uNm_3");</script>
 </head>
 <body>
 
@@ -29,22 +31,6 @@
         <a href="services.html" class="nav-dropdown-trigger">Services <span class="nav-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <div class="ndm-inner">
-            <div class="ndm-col">
-              <div class="ndm-heading">Basic Services</div>
-              <a href="services.html#basic">Color Print</a>
-              <a href="services.html#basic">Photocopy</a>
-              <a href="services.html#basic">Lamination</a>
-              <a href="services.html#basic">Scanning</a>
-              <a href="services.html#basic">Passport Size Photo</a>
-            </div>
-            <div class="ndm-col">
-              <div class="ndm-heading">Computer Services</div>
-              <a href="services.html#computer">Aadhaar Update</a>
-              <a href="services.html#computer">PAN Card</a>
-              <a href="services.html#computer">PC / Laptop Repair</a>
-              <a href="services.html#computer">Virus Removal</a>
-              <a href="services.html#computer">Govt. Form Submission</a>
-            </div>
             <div class="ndm-col">
               <div class="ndm-heading">Visiting Cards</div>
               <a href="services.html#visiting-cards">Standard Card</a>
@@ -109,7 +95,7 @@
     <div class="search-chips">
       <button class="search-chip" data-chip="">All</button>
       <button class="search-chip" data-chip="Printing">Printing</button>
-      <button class="search-chip" data-chip="Computer">Computer Services</button>
+      
     </div>
     <div id="searchResults" class="search-results"></div>
     <p class="search-hint">Press ESC to close</p>
@@ -229,14 +215,7 @@
             <label class="cf-label" for="cf-service">Service Needed <span class="cf-req">*</span></label>
             <select id="cf-service" name="service" class="cf-input">
               <option value="">— Select a service —</option>
-              <optgroup label="Basic Printing">
-                <option>Color Print</option>
-                <option>Photocopy</option>
-                <option>Printout</option>
-                <option>Lamination</option>
-                <option>Scanning</option>
-                <option>Passport Size Photo</option>
-              </optgroup>
+              
               <optgroup label="Visiting Cards">
                 <option>Standard Visiting Card</option>
                 <option>Gloss / Matt Finish Card</option>
@@ -254,17 +233,7 @@
                 <option>Roll Up Standee</option>
                 <option>Canopy</option>
               </optgroup>
-              <optgroup label="Computer Services">
-                <option>Aadhaar Update</option>
-                <option>PAN Card</option>
-                <option>PC / Laptop Repair</option>
-                <option>Virus Removal</option>
-                <option>Windows Installation</option>
-                <option>MS Office Installation</option>
-                <option>Govt. Form Submission</option>
-                <option>Resume Creation</option>
-                <option>Railway / Flight Booking</option>
-              </optgroup>
+              
               <optgroup label="Other">
                 <option>Letterhead</option>
                 <option>Brochure / Pamphlet</option>
@@ -360,7 +329,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Pandit Computers &amp; Printers. All rights reserved. &nbsp;|&nbsp; Designed &amp; Developed by <a href="#" style="color:var(--blue-light);text-decoration:none;font-weight:600;">K&amp;D Solutions Pvt. Ltd.</a></p>
+    <p>© 2026 Pandit Computers &amp; Printers. All rights reserved. &nbsp;|&nbsp; Designed &amp; Developed by <strong>KD Labs</strong></p>
     <div class="footer-bottom-links">
       <a href="privacy-policy.html">Privacy</a>
       <a href="terms-conditions.html">Terms</a>
@@ -400,6 +369,9 @@
 <!-- Contact form validation -->
 <script>
 (function() {
+  const SERVICE_ID  = 'service_ep3gf1m';
+  const TEMPLATE_ID = 'template_2ecd7fh';
+
   const form    = document.getElementById('contactForm');
   const submit  = document.getElementById('cf-submit');
   const success = document.getElementById('cf-success');
@@ -412,7 +384,6 @@
     'cf-message': { el: null, err: 'err-message', validate: v => v.trim().length >= 10 },
   };
 
-  // Cache elements
   Object.keys(rules).forEach(id => { rules[id].el = document.getElementById(id); });
 
   function showError(key, show) {
@@ -428,7 +399,6 @@
     return valid;
   }
 
-  // Live validation on blur
   Object.keys(rules).forEach(key => {
     const el = rules[key].el;
     el.addEventListener('blur', () => validateField(key));
@@ -439,27 +409,56 @@
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+
     let allValid = true;
-    Object.keys(rules).forEach(key => {
-      if (!validateField(key)) allValid = false;
-    });
+    Object.keys(rules).forEach(key => { if (!validateField(key)) allValid = false; });
     if (!allValid) return;
 
-    // Simulate send
+    // Show loading
     submit.querySelector('.cf-submit-text').style.display = 'none';
     submit.querySelector('.cf-submit-loading').style.display = 'inline';
     submit.disabled = true;
 
-    setTimeout(() => {
+    const name    = document.getElementById('cf-name').value.trim();
+    const phone   = document.getElementById('cf-phone').value.replace(/[\s+\-]/g,'');
+    const email   = document.getElementById('cf-email').value.trim();
+    const service = document.getElementById('cf-service').value;
+    const message = document.getElementById('cf-message').value.trim();
+
+    // Send email via EmailJS
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      from_name:  name,
+      from_email: email,
+      phone:      phone,
+      service:    service,
+      message:    message,
+    })
+    .then(() => {
+      // Success — reset form
       form.reset();
+      Object.keys(rules).forEach(key => showError(key, false));
+      success.style.display = 'flex';
+      setTimeout(() => success.style.display = 'none', 8000);
+
+      // Open WhatsApp with pre-filled message
+      const waText = encodeURIComponent(
+        `Hi, I just submitted an enquiry on your website.\n\n` +
+        `Name: ${name}\n` +
+        `Phone: ${phone}\n` +
+        `Service: ${service}\n` +
+        `Message: ${message}`
+      );
+      window.open(`https://wa.me/918171294045?text=${waText}`, '_blank');
+    })
+    .catch((err) => {
+      console.error('EmailJS error:', err);
+      alert('Something went wrong. Please call us directly at +91 81712 94045 or WhatsApp us.');
+    })
+    .finally(() => {
       submit.querySelector('.cf-submit-text').style.display = 'inline';
       submit.querySelector('.cf-submit-loading').style.display = 'none';
       submit.disabled = false;
-      success.style.display = 'flex';
-      setTimeout(() => success.style.display = 'none', 6000);
-      // Clear all errors
-      Object.keys(rules).forEach(key => showError(key, false));
-    }, 1200);
+    });
   });
 })();
 </script>

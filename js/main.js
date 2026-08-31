@@ -448,4 +448,60 @@ document.addEventListener('DOMContentLoaded', () => {
     startAboutAuto();
   }
 
+  /* ── Mega Menu: robust open/close with delay ────────────── */
+  const dropdown     = document.querySelector('.nav-dropdown');
+  const megaMenu     = document.querySelector('.nav-dropdown-menu.mega-menu');
+  const megaTabs     = document.querySelectorAll('.mega-tab');
+  const megaPanels   = document.querySelectorAll('.mega-panel');
+  let   closeTimer   = null;
+
+  function openMega() {
+    clearTimeout(closeTimer);
+    if (megaMenu) megaMenu.classList.add('open');
+    if (dropdown) dropdown.classList.add('open');
+  }
+  function scheduleMegaClose() {
+    closeTimer = setTimeout(() => {
+      if (megaMenu) megaMenu.classList.remove('open');
+      if (dropdown) dropdown.classList.remove('open');
+    }, 120); // 120 ms grace — enough to move mouse into menu
+  }
+
+  if (dropdown) {
+    dropdown.addEventListener('mouseenter', openMega);
+    dropdown.addEventListener('mouseleave', scheduleMegaClose);
+  }
+  if (megaMenu) {
+    megaMenu.addEventListener('mouseenter', openMega);
+    megaMenu.addEventListener('mouseleave', scheduleMegaClose);
+  }
+
+  /* Tab switching inside mega menu */
+  megaTabs.forEach(tab => {
+    tab.addEventListener('mouseenter', () => {
+      megaTabs.forEach(t => t.classList.remove('active'));
+      megaPanels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const target = document.getElementById('panel-' + tab.dataset.tab);
+      if (target) target.classList.add('active');
+    });
+  });
+
+  /* ── Nav Inline Search Bar → open overlay on focus/type ─── */
+  const navSearchInput = document.getElementById('navSearchInput');
+  if (navSearchInput) {
+    navSearchInput.addEventListener('focus', () => {
+      document.querySelector('.search-overlay')?.classList.add('open');
+      document.getElementById('siteSearchInput')?.focus();
+      navSearchInput.blur();
+    });
+    navSearchInput.addEventListener('keydown', (e) => {
+      if (e.key.length === 1 || e.key === 'Backspace') {
+        document.querySelector('.search-overlay')?.classList.add('open');
+        const si = document.getElementById('siteSearchInput');
+        if (si) { si.focus(); si.value = navSearchInput.value; navSearchInput.value = ''; }
+      }
+    });
+  }
+
 });

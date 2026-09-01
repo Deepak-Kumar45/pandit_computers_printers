@@ -504,4 +504,80 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ── Hero Slider ─────────────────────────────────────────── */
+  const hsSlides    = document.querySelectorAll('.hs-slide');
+  const hsDots      = document.querySelectorAll('.hs-dot-btn');
+  const hsPrevBtn   = document.getElementById('hsPrev');
+  const hsNextBtn   = document.getElementById('hsNext');
+  const hsCurrentEl = document.getElementById('hsCurrent');
+  const hsSlider    = document.querySelector('.hero-slider');
+
+  if (hsSlides.length) {
+    let hsCur = 0;
+    let hsTimer = null;
+    const TOTAL = hsSlides.length;
+
+    function hsGoTo(idx) {
+      if (idx < 0) idx = TOTAL - 1;
+      if (idx >= TOTAL) idx = 0;
+      hsSlides[hsCur].classList.remove('active');
+      hsDots[hsCur].classList.remove('active');
+      hsDots[hsCur].setAttribute('aria-selected', 'false');
+      hsCur = idx;
+      hsSlides[hsCur].classList.add('active');
+      hsDots[hsCur].classList.add('active');
+      hsDots[hsCur].setAttribute('aria-selected', 'true');
+      if (hsCurrentEl) hsCurrentEl.textContent = String(hsCur + 1).padStart(2, '0');
+      // Animate counters in active slide
+      hsSlides[hsCur].querySelectorAll('[data-counter]').forEach(el => {
+        const target = +el.dataset.counter;
+        let cur = 0; const step = Math.ceil(target / 60);
+        const t = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          el.textContent = cur >= 1000 ? (cur / 1000).toFixed(0) + 'K' : cur;
+          if (cur >= target) clearInterval(t);
+        }, 25);
+      });
+    }
+
+    function hsStart()   { hsTimer = setInterval(() => hsGoTo(hsCur + 1), 5500); }
+    function hsStop()    { clearInterval(hsTimer); }
+    function hsRestart() { hsStop(); hsStart(); }
+
+    // Init
+    hsGoTo(0);
+    hsStart();
+
+    // Arrows
+    if (hsPrevBtn) hsPrevBtn.addEventListener('click', () => { hsGoTo(hsCur - 1); hsRestart(); });
+    if (hsNextBtn) hsNextBtn.addEventListener('click', () => { hsGoTo(hsCur + 1); hsRestart(); });
+
+    // Dots
+    hsDots.forEach(dot => dot.addEventListener('click', () => { hsGoTo(+dot.dataset.dot); hsRestart(); }));
+
+    // Pause on hover
+    if (hsSlider) {
+      hsSlider.addEventListener('mouseenter', hsStop);
+      hsSlider.addEventListener('mouseleave', hsStart);
+    }
+
+    // Swipe support
+    let hsX0 = null;
+    if (hsSlider) {
+      hsSlider.addEventListener('touchstart', e => { hsX0 = e.touches[0].clientX; }, { passive: true });
+      hsSlider.addEventListener('touchend',   e => {
+        if (hsX0 === null) return;
+        const dx = e.changedTouches[0].clientX - hsX0;
+        if (Math.abs(dx) > 40) { hsGoTo(dx < 0 ? hsCur + 1 : hsCur - 1); hsRestart(); }
+        hsX0 = null;
+      }, { passive: true });
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { hsGoTo(hsCur - 1); hsRestart(); }
+      if (e.key === 'ArrowRight') { hsGoTo(hsCur + 1); hsRestart(); }
+    });
+  }
+
 });

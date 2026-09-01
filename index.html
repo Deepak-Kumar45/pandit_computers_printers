@@ -507,66 +507,190 @@
   </div>
 </div>
 
-<section class="hero">
-  <div class="hero-bg-pattern"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow"><span class="dot"></span>Trusted Local Shop Since 2011</div>
-      <h1 class="hero-title">Perfect Printing<br><span class="accent">Perfect Businesses..</span></h1>
-      <p class="hero-sub">From visiting cards and wedding invitations to flex banners, ID cards, gifting and DTF printing — Pandit Computers & Printers is Bulandshahr's one-stop shop for quality printing services.</p>
-      <div class="hero-actions">
-        <a href="services.html" class="btn-primary">Explore Our Services <span>→</span></a>
-        <a href="services.html" class="btn-outline">Explore All Services</a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num"><span data-counter="15">0</span>+</div>
-          <div class="hero-stat-label">Years Experience</div>
-        </div>
-        <div>
-          <div class="hero-stat-num"><span data-counter="200000">0</span>+</div>
-          <div class="hero-stat-label">Orders Completed</div>
-        </div>
-        <div>
-          <div class="hero-stat-num">4.9 ⭐</div>
-          <div class="hero-stat-label">Average Rating</div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-card-stack">
-        <div class="hero-float-badge badge-1">
-          <span class="badge-icon">⚡</span>
-          <span class="badge-text">Same-Day<span>Service</span></span>
-        </div>
-        <div class="hero-main-card glass-card">
-          <div class="hero-card-title">Popular Today</div>
-          <div class="service-icon-grid">
-            <div class="service-icon-item"><div class="icon">📇</div><div class="label">Visiting Card</div></div>
-            <div class="service-icon-item"><div class="icon">🪪</div><div class="label">ID Card</div></div>
-            <div class="service-icon-item"><div class="icon">🏳️</div><div class="label">Flex Banner</div></div>
-            <div class="service-icon-item"><div class="icon">📿</div><div class="label">Wedding Card</div></div>
-            <div class="service-icon-item"><div class="icon">🎁</div><div class="label">Gifting</div></div>
-            <div class="service-icon-item"><div class="icon">🏆</div><div class="label">Trophy</div></div>
-            <div class="service-icon-item"><div class="icon">☕</div><div class="label">Mug Print</div></div>
-            <div class="service-icon-item"><div class="icon">👕</div><div class="label">T-Shirt Print</div></div>
-            <div class="service-icon-item"><div class="icon">🌈</div><div class="label">DTF Print</div></div>
-          </div>
-          <div class="hero-card-divider"></div>
-          <div class="hero-quick-stat">
-            <div class="hqs-item"><div class="hqs-num">44</div><div class="hqs-lbl">Total Services</div></div>
-            <div class="hqs-item"><div class="hqs-num">15min</div><div class="hqs-lbl">Avg. Wait</div></div>
-            <div class="hqs-item"><div class="hqs-num">100%</div><div class="hqs-lbl">Satisfaction</div></div>
-          </div>
-        </div>
-        <div class="hero-float-badge badge-2">
-          <span class="badge-icon">✅</span>
-          <span class="badge-text">Govt. Form<span>Specialists</span></span>
-        </div>
-      </div>
-    </div>
+<!-- ═══════════════════════════════════════════════════════
+     HERO SLIDER — 5 slides
+═══════════════════════════════════════════════════════ -->
+<section class="hero-slider" aria-label="Hero Slideshow">
+
+  <!-- Same-Day Badge (persistent) -->
+  <div class="hs-badge">
+    <span class="hs-badge-icon">⚡</span>
+    <span class="hs-badge-text">Same-Day<span>Service</span></span>
   </div>
+
+  <!-- Slides -->
+  <div class="hs-track" id="hsTrack">
+
+    <!-- SLIDE 1: Production & Printing -->
+    <div class="hs-slide active" data-slide="0">
+      <div class="hs-content">
+        <div class="hs-eyebrow"><span class="hs-dot"></span>Trusted Local Shop Since 2011</div>
+        <h1 class="hs-title">Perfect Printing<br><span class="hs-accent">Perfect Businesses</span></h1>
+        <p class="hs-sub">From visiting cards and wedding invitations to flex banners, ID cards, gifting and DTF printing — Bulandshahr's one-stop shop for quality printing.</p>
+        <div class="hs-actions">
+          <a href="services.html" class="btn-primary">Explore Our Services <span>→</span></a>
+          <a href="contact.html#contact-form" class="btn-outline">Get a Quote</a>
+        </div>
+        <div class="hs-stats">
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="15">0</span>+</div><div class="hs-stat-lbl">Years Experience</div></div>
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="200000">0</span>+</div><div class="hs-stat-lbl">Orders Completed</div></div>
+          <div class="hs-stat"><div class="hs-stat-num">4.9 ⭐</div><div class="hs-stat-lbl">Average Rating</div></div>
+        </div>
+      </div>
+      <div class="hs-image-wrap">
+        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=900&q=80&auto=format&fit=crop"
+             alt="Large format printing machine in production"
+             class="hs-img" loading="eager" fetchpriority="high">
+        <div class="hs-img-overlay"></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Printing Products / Categories -->
+    <div class="hs-slide" data-slide="1">
+      <div class="hs-content">
+        <div class="hs-eyebrow"><span class="hs-dot"></span>50+ Print Products</div>
+        <h1 class="hs-title">Wide Range of<br><span class="hs-accent">Printing Services</span></h1>
+        <p class="hs-sub">Business essentials, personal prints, promotional items and more — everything you need, all under one roof.</p>
+        <div class="hs-actions">
+          <a href="services.html" class="btn-primary">Explore Our Services <span>→</span></a>
+          <a href="services.html" class="btn-outline">Explore All Services</a>
+        </div>
+        <div class="hs-stats">
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="15">0</span>+</div><div class="hs-stat-lbl">Years Experience</div></div>
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="200000">0</span>+</div><div class="hs-stat-lbl">Orders Completed</div></div>
+          <div class="hs-stat"><div class="hs-stat-num">4.9 ⭐</div><div class="hs-stat-lbl">Average Rating</div></div>
+        </div>
+      </div>
+      <div class="hs-image-wrap">
+        <div class="hs-product-grid">
+          <div class="hs-product-item">
+            <div class="hs-product-icon">📇</div>
+            <div class="hs-product-lbl">Visiting Cards</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">🪪</div>
+            <div class="hs-product-lbl">ID Cards</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">🏳️</div>
+            <div class="hs-product-lbl">Flex Banners</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">💒</div>
+            <div class="hs-product-lbl">Wedding Cards</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">☕</div>
+            <div class="hs-product-lbl">Mug Prints</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">👕</div>
+            <div class="hs-product-lbl">T-Shirt Prints</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">🖨️</div>
+            <div class="hs-product-lbl">DTF Prints</div>
+          </div>
+          <div class="hs-product-item">
+            <div class="hs-product-icon">🏆</div>
+            <div class="hs-product-lbl">Trophies &amp; Gifts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Professional Printing Machines -->
+    <div class="hs-slide" data-slide="2">
+      <div class="hs-content">
+        <div class="hs-eyebrow"><span class="hs-dot"></span>High-End Equipment</div>
+        <h1 class="hs-title">Advanced<br><span class="hs-accent">Printing Machines</span></h1>
+        <p class="hs-sub">We use modern, high-quality printing machines to deliver sharp, vibrant and long-lasting prints.</p>
+        <div class="hs-actions">
+          <a href="services.html" class="btn-primary">Explore Our Services <span>→</span></a>
+          <a href="services.html" class="btn-outline">Explore All Services</a>
+        </div>
+        <div class="hs-stats">
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="15">0</span>+</div><div class="hs-stat-lbl">Years Experience</div></div>
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="200000">0</span>+</div><div class="hs-stat-lbl">Orders Completed</div></div>
+          <div class="hs-stat"><div class="hs-stat-num">4.9 ⭐</div><div class="hs-stat-lbl">Average Rating</div></div>
+        </div>
+      </div>
+      <div class="hs-image-wrap">
+        <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?w=900&q=80&auto=format&fit=crop"
+             alt="Professional large-format printing machine"
+             class="hs-img" loading="lazy">
+        <div class="hs-img-overlay"></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Finished Products & Quality -->
+    <div class="hs-slide" data-slide="3">
+      <div class="hs-content">
+        <div class="hs-eyebrow"><span class="hs-dot"></span>Premium Quality Output</div>
+        <h1 class="hs-title">Quality Printing<br><span class="hs-accent">Trusted by Thousands</span></h1>
+        <p class="hs-sub">From small businesses to big brands, our quality and service speak for themselves.</p>
+        <div class="hs-actions">
+          <a href="services.html" class="btn-primary">Explore Our Services <span>→</span></a>
+          <a href="services.html" class="btn-outline">Explore All Services</a>
+        </div>
+        <div class="hs-stats">
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="15">0</span>+</div><div class="hs-stat-lbl">Years Experience</div></div>
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="200000">0</span>+</div><div class="hs-stat-lbl">Orders Completed</div></div>
+          <div class="hs-stat"><div class="hs-stat-num">4.9 ⭐</div><div class="hs-stat-lbl">Average Rating</div></div>
+        </div>
+      </div>
+      <div class="hs-image-wrap">
+        <img src="https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=900&q=80&auto=format&fit=crop"
+             alt="Finished printed products - mugs, bags and business cards"
+             class="hs-img" loading="lazy">
+        <div class="hs-img-overlay"></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Business Branding & Signage -->
+    <div class="hs-slide" data-slide="4">
+      <div class="hs-content">
+        <div class="hs-eyebrow"><span class="hs-dot"></span>Your Brand. Our Quality.</div>
+        <h1 class="hs-title">Your Brand<br><span class="hs-accent">Our Quality. Perfect Impact</span></h1>
+        <p class="hs-sub">We print more than just designs, we print your identity. Signage, branding, and business materials done right.</p>
+        <div class="hs-actions">
+          <a href="services.html" class="btn-primary">Explore Our Services <span>→</span></a>
+          <a href="services.html" class="btn-outline">Explore All Services</a>
+        </div>
+        <div class="hs-stats">
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="15">0</span>+</div><div class="hs-stat-lbl">Years Experience</div></div>
+          <div class="hs-stat"><div class="hs-stat-num"><span data-counter="200000">0</span>+</div><div class="hs-stat-lbl">Orders Completed</div></div>
+          <div class="hs-stat"><div class="hs-stat-num">4.9 ⭐</div><div class="hs-stat-lbl">Average Rating</div></div>
+        </div>
+      </div>
+      <div class="hs-image-wrap">
+        <img src="https://images.unsplash.com/photo-1553484771-047a44eab27b?w=900&q=80&auto=format&fit=crop"
+             alt="Business branding signage and shop front"
+             class="hs-img" loading="lazy">
+        <div class="hs-img-overlay"></div>
+      </div>
+    </div>
+
+  </div><!-- /hs-track -->
+
+  <!-- Prev / Next arrows -->
+  <button class="hs-arrow hs-prev" id="hsPrev" aria-label="Previous slide">&#8249;</button>
+  <button class="hs-arrow hs-next" id="hsNext" aria-label="Next slide">&#8250;</button>
+
+  <!-- Pagination dots -->
+  <div class="hs-dots" role="tablist" aria-label="Slide navigation">
+    <button class="hs-dot-btn active" role="tab" aria-selected="true"  aria-label="Slide 1" data-dot="0"></button>
+    <button class="hs-dot-btn"        role="tab" aria-selected="false" aria-label="Slide 2" data-dot="1"></button>
+    <button class="hs-dot-btn"        role="tab" aria-selected="false" aria-label="Slide 3" data-dot="2"></button>
+    <button class="hs-dot-btn"        role="tab" aria-selected="false" aria-label="Slide 4" data-dot="3"></button>
+    <button class="hs-dot-btn"        role="tab" aria-selected="false" aria-label="Slide 5" data-dot="4"></button>
+  </div>
+
+  <!-- Slide counter -->
+  <div class="hs-counter" aria-live="polite">
+    <span id="hsCurrent">01</span> / <span id="hsTotal">05</span>
+  </div>
+
 </section>
 
 <section class="section about-section" id="about-home">

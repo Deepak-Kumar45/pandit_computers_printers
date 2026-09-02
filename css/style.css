@@ -242,7 +242,7 @@ ul { list-style: none; }
 .hs-slide {
   position: absolute; inset: 0;
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 45% 55%;
   align-items: center;
   opacity: 0;
   visibility: hidden;
@@ -331,33 +331,7 @@ ul { list-style: none; }
   pointer-events: none;
 }
 
-/* ── Slide 2: Product Grid ─────────────────────────────── */
-.hs-product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 32px 32px 32px 16px;
-  height: 100%;
-  align-content: center;
-}
-.hs-product-item {
-  background: #fff;
-  border: 1px solid #E2EAF4;
-  border-radius: var(--radius-md);
-  padding: 20px 10px;
-  text-align: center;
-  transition: var(--transition);
-  box-shadow: 0 4px 14px rgba(10,22,40,0.06);
-}
-.hs-product-item:hover {
-  border-color: var(--blue);
-  background: rgba(30,111,217,0.04);
-  transform: translateY(-3px);
-}
-.hs-product-icon { font-size: 2rem; margin-bottom: 8px; }
-.hs-product-lbl  { font-size: 0.7rem; font-weight: 600; color: var(--slate); }
-
-/* ── Same-Day Badge ────────────────────────────────────── */
+/* ── Ken Burns on active slide ─────────────────────────── */
 .hs-badge {
   position: absolute;
   top: 96px; right: 24px;

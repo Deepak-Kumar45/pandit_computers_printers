@@ -418,36 +418,6 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(tick);
   }
 
-  /* ── About Section Carousel ────────────────────────────── */
-  const aboutTrack = document.getElementById('aboutCarouselTrack');
-  const aboutDots  = document.querySelectorAll('.acd');
-  const aboutPrev  = document.getElementById('aboutPrev');
-  const aboutNext  = document.getElementById('aboutNext');
-  let aboutCurrent = 0;
-  const aboutTotal = 4;
-  let aboutTimer;
-
-  function goToSlide(idx) {
-    aboutCurrent = (idx + aboutTotal) % aboutTotal;
-    aboutTrack.style.transform = `translateX(-${aboutCurrent * 100}%)`;
-    aboutDots.forEach((d, i) => d.classList.toggle('active', i === aboutCurrent));
-  }
-
-  function startAboutAuto() {
-    aboutTimer = setInterval(() => goToSlide(aboutCurrent + 1), 3800);
-  }
-  function resetAboutAuto() {
-    clearInterval(aboutTimer);
-    startAboutAuto();
-  }
-
-  if (aboutTrack) {
-    aboutDots.forEach(d => d.addEventListener('click', () => { goToSlide(+d.dataset.idx); resetAboutAuto(); }));
-    if (aboutPrev) aboutPrev.addEventListener('click', () => { goToSlide(aboutCurrent - 1); resetAboutAuto(); });
-    if (aboutNext) aboutNext.addEventListener('click', () => { goToSlide(aboutCurrent + 1); resetAboutAuto(); });
-    startAboutAuto();
-  }
-
   /* ── Mega Menu: robust open/close with delay ────────────── */
   const dropdown     = document.querySelector('.nav-dropdown');
   const megaMenu     = document.querySelector('.nav-dropdown-menu.mega-menu');

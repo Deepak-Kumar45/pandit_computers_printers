@@ -504,6 +504,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ── Industries Ticker — pause on hover, arrows ───────── */
+  const indTicker  = document.getElementById('indTicker');
+  const indTrack   = document.getElementById('indTrack');
+  const indPrevBtn = document.getElementById('indPrev');
+  const indNextBtn = document.getElementById('indNext');
+
+  if (indTicker && indTrack) {
+    const CARD_W   = 230 + 20; // card width + gap
+    const HALF     = indTrack.scrollWidth / 2; // one full set width
+    let   offset   = 0;        // current translateX offset (negative = moved left)
+    let   rafId    = null;
+    let   isPaused = false;
+    const SPEED    = 0.6;      // px per frame
+
+    function applyTransform() {
+      indTrack.style.transform = `translateX(${offset}px)`;
+    }
+
+    function tick() {
+      if (!isPaused) {
+        offset -= SPEED;
+        // Seamless loop: when we've scrolled one full set, jump back
+        if (Math.abs(offset) >= HALF) offset += HALF;
+        applyTransform();
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // Remove CSS animation — JS takes full control
+    indTrack.style.animation = 'none';
+    indTrack.style.transform = `translateX(0px)`;
+    rafId = requestAnimationFrame(tick);
+
+    // Pause on hover / touch
+    indTicker.addEventListener('mouseenter', () => { isPaused = true; });
+    indTicker.addEventListener('mouseleave', () => { isPaused = false; });
+    indTicker.addEventListener('touchstart', () => { isPaused = true; },  { passive: true });
+    indTicker.addEventListener('touchend',   () => {
+      setTimeout(() => { isPaused = false; }, 1200);
+    }, { passive: true });
+
+    // Arrow buttons — scroll by one card, pause 2s then resume
+    function scrollBy(dir) {
+      isPaused = true;
+      offset += dir * -CARD_W;
+      // Keep within bounds for seamless loop
+      if (Math.abs(offset) >= HALF) offset += HALF;
+      if (offset > 0) offset -= HALF;
+      applyTransform();
+      clearTimeout(window._indResumeTimer);
+      window._indResumeTimer = setTimeout(() => { isPaused = false; }, 2000);
+    }
+
+    if (indPrevBtn) indPrevBtn.addEventListener('click', () => scrollBy(-1));
+    if (indNextBtn) indNextBtn.addEventListener('click', () => scrollBy(1));
+  }
+
   /* ── Hero Slider ─────────────────────────────────────────── */
   const hsSlides    = document.querySelectorAll('.hs-slide');
   const hsDots      = document.querySelectorAll('.hs-dot-btn');

@@ -242,7 +242,7 @@ ul { list-style: none; }
 .hs-slide {
   position: absolute; inset: 0;
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 38% 62%;
   align-items: center;
   opacity: 0;
   visibility: hidden;
@@ -794,6 +794,172 @@ footer {
 .breadcrumb-nav .current { color: var(--blue-light); font-weight: 600; }
 .breadcrumb h1 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: #fff; }
 .breadcrumb p { color: rgba(255,255,255,0.65); margin-top: 8px; }
+
+/* ─── Industries We Serve ────────────────────────────────── */
+.industries-section {
+  background: #F0F4FA;
+  overflow: hidden;
+  padding-bottom: 56px;
+}
+.ind-title-line {
+  width: 56px; height: 3px;
+  background: var(--blue);
+  border-radius: 99px;
+  margin: 18px auto 0;
+}
+
+/* Ticker outer — clips the scrolling track */
+.ind-ticker-outer {
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  /* Fade edges for premium feel */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image:         linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+.ind-ticker-outer:active { cursor: grabbing; }
+
+/* Track — contains 20 cards (10 original + 10 clones), scrolls via JS */
+.ind-ticker-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
+  /* CSS animation as base — JS takes over for pause-on-hover */
+  animation: indScroll 32s linear infinite;
+}
+.ind-ticker-track.paused { animation-play-state: paused; }
+
+@keyframes indScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }  /* 50% = scroll one full set of 10 cards */
+}
+
+/* Individual card — full image coverage like screenshot */
+.ind-card {
+  flex: 0 0 230px;
+  width: 230px;
+  height: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  box-shadow: 0 6px 24px rgba(10,22,40,0.15);
+}
+.ind-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 52px rgba(10,22,40,0.28);
+}
+
+/* Full card image */
+.ind-card-img-wrap {
+  position: absolute;
+  inset: 0;
+}
+.ind-card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.6s ease;
+}
+.ind-card:hover .ind-card-img-wrap img { transform: scale(1.07); }
+
+/* Dark gradient overlay — full card, heavier at bottom */
+.ind-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,22,40,0.18) 0%,
+    rgba(10,22,40,0.55) 50%,
+    rgba(10,22,40,0.90) 100%
+  );
+}
+
+/* Icon circle — centered, mid-card */
+.ind-card-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -70%);
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.15);
+  border: 2.5px solid #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  transition: background 0.3s, transform 0.3s;
+}
+.ind-card:hover .ind-card-icon {
+  background: var(--blue);
+  border-color: var(--blue);
+  transform: translate(-50%, -75%);
+}
+
+/* Text body — pinned to bottom over overlay */
+.ind-card-body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 18px 22px;
+  text-align: center;
+  z-index: 2;
+}
+.ind-card-title {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  color: #fff; margin: 0 0 8px;
+  line-height: 1.3;
+}
+.ind-card-line {
+  width: 32px; height: 2.5px;
+  background: var(--blue);
+  border-radius: 99px;
+  margin: 0 auto 10px;
+}
+.ind-card-items {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6; margin: 0;
+}
+
+/* ── Arrow buttons — on left & right of ticker ─────────── */
+.ind-ticker-outer { position: relative; } /* ensure arrows position relative to this */
+
+.ind-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  z-index: 10;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #E2EAF4;
+  box-shadow: 0 4px 18px rgba(10,22,40,0.15);
+  font-size: 1.5rem; line-height: 1;
+  color: var(--navy);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.ind-arrow:hover {
+  background: var(--blue); color: #fff;
+  box-shadow: 0 6px 24px rgba(30,111,217,0.35);
+  transform: translateY(-50%) scale(1.1);
+}
+.ind-arrow-left  { left: 12px; }
+.ind-arrow-right { right: 12px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ind-card { flex: 0 0 190px; width: 190px; height: 290px; }
+}
+@media (max-width: 480px) {
+  .ind-card { flex: 0 0 165px; width: 165px; height: 260px; }
+  .ind-card-title { font-size: 0.88rem; }
+  .ind-card-icon { width: 46px; height: 46px; font-size: 1.1rem; }
+}
 
 /* ─── About ──────────────────────────────────────────────── */
 .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }

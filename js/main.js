@@ -474,6 +474,90 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ── Our Expertise Carousel — 3-card rotational ────────── */
+  (function() {
+    const viewport = document.querySelector('.exp-viewport');
+    const navItems = document.querySelectorAll('.exp-nav-item');
+    const prevBtn  = document.getElementById('expPrev');
+    const nextBtn  = document.getElementById('expNext');
+    if (!viewport) return;
+
+    const allCards = Array.from(document.querySelectorAll('.exp-card'));
+    const TOTAL    = allCards.length;
+    let   cur      = 0;
+    let   timer    = null;
+
+    // We show exactly 3 cards: prev, active, next
+    // Pull them out of the track and re-insert the right 3 each time
+    const track = document.getElementById('expTrack');
+
+    function getIndices(c) {
+      const prev = (c - 1 + TOTAL) % TOTAL;
+      const next = (c + 1) % TOTAL;
+      return { prev, active: c, next };
+    }
+
+    function render(c, animate) {
+      const { prev, active, next } = getIndices(c);
+
+      // Disable transition momentarily if not animating
+      if (!animate) track.style.transition = 'none';
+
+      // Clear track, insert exactly 3 cards in order
+      track.innerHTML = '';
+      [prev, active, next].forEach((idx, pos) => {
+        const card = allCards[idx];
+        card.classList.remove('exp-peek', 'exp-peek-left', 'exp-peek-right');
+        if (pos === 0) card.classList.add('exp-peek', 'exp-peek-left');
+        if (pos === 2) card.classList.add('exp-peek', 'exp-peek-right');
+        track.appendChild(card);
+      });
+
+      // Reset transform (always starts at 0 since we re-order DOM)
+      track.style.transform = 'translateX(0)';
+
+      if (!animate) {
+        track.getBoundingClientRect(); // force reflow
+        track.style.transition = 'transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+      }
+
+      // Update nav
+      navItems.forEach((n, i) => n.classList.toggle('active', i === c));
+    }
+
+    function goTo(idx) {
+      cur = ((idx % TOTAL) + TOTAL) % TOTAL;
+      render(cur, true);
+    }
+
+    function start()   { timer = setInterval(() => goTo(cur + 1), 4500); }
+    function stop()    { clearInterval(timer); }
+    function restart() { stop(); start(); }
+
+    // Init
+    render(cur, false);
+    start();
+
+    prevBtn && prevBtn.addEventListener('click', () => { goTo(cur - 1); restart(); });
+    nextBtn && nextBtn.addEventListener('click', () => { goTo(cur + 1); restart(); });
+    navItems.forEach(n => n.addEventListener('click', () => { goTo(+n.dataset.goto); restart(); }));
+
+    // Click left peek → go prev, click right peek → go next
+    track.addEventListener('click', e => {
+      const card = e.target.closest('.exp-card');
+      if (!card) return;
+      if (card.classList.contains('exp-peek-left'))  { goTo(cur - 1); restart(); }
+      if (card.classList.contains('exp-peek-right')) { goTo(cur + 1); restart(); }
+    });
+
+    // Pause on hover
+    const section = document.getElementById('expertise');
+    if (section) {
+      section.addEventListener('mouseenter', stop);
+      section.addEventListener('mouseleave', start);
+    }
+  })();
+
   /* ── Industries Ticker — pause on hover, arrows ───────── */
   const indTicker  = document.getElementById('indTicker');
   const indTrack   = document.getElementById('indTrack');

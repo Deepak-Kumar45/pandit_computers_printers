@@ -220,36 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
-  /* ── Live Chat Widget ──────────────────────────────────── */
-  const chatToggle = document.querySelector('.chat-toggle');
-  const chatWidget = document.querySelector('.chat-widget');
-  chatToggle?.addEventListener('click', () => chatWidget?.classList.toggle('open'));
-  document.querySelector('.chat-close-btn')?.addEventListener('click', () => chatWidget?.classList.remove('open'));
-  document.querySelector('.chat-send')?.addEventListener('click', sendChatDemo);
-  document.querySelector('.chat-input-row input')?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendChatDemo();
-  });
-  function sendChatDemo() {
-    const input = document.querySelector('.chat-input-row input');
-    const body = document.querySelector('.chat-body');
-    if (input && input.value.trim() && body) {
-      const userMsg = document.createElement('div');
-      userMsg.className = 'chat-bubble';
-      userMsg.style.cssText = 'background:var(--blue);color:#fff;margin-left:auto;border-radius:16px 0 16px 16px;max-width:80%;';
-      userMsg.textContent = input.value;
-      body.appendChild(userMsg);
-      input.value = '';
-      body.scrollTop = body.scrollHeight;
-      setTimeout(() => {
-        const reply = document.createElement('div');
-        reply.className = 'chat-bubble';
-        reply.textContent = "Thanks for reaching out! Our team will respond shortly. For urgent help, please call or WhatsApp us at +91 98765 43210.";
-        body.appendChild(reply);
-        body.scrollTop = body.scrollHeight;
-      }, 800);
-    }
-  }
-
   /* ── Toast Notification ───────────────────────────────── */
   window.showToast = function(message) {
     let toast = document.querySelector('.toast');
@@ -486,6 +456,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const TOTAL    = allCards.length;
     let   cur      = 0;
     let   timer    = null;
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SHIFT = reduceMotion ? 0 : 14;   // slide distance in % (fade only if the OS asks for reduced motion)
+    // --- Timing (edit here) ---
+    const AUTO_MS = 2500;   // time each slide stays before auto-advancing
+    const OUT_MS  = 200;    // current row slides out
+    const IN_MS   = 350;    // new row slides in
+    let   swapTimer = null;
 
     // We show exactly 3 cards: prev, active, next
     // Pull them out of the track and re-insert the right 3 each time
@@ -497,11 +474,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return { prev, active: c, next };
     }
 
-    function render(c, animate) {
+    function render(c, animate, dir) {
       const { prev, active, next } = getIndices(c);
-
-      // Disable transition momentarily if not animating
-      if (!animate) track.style.transition = 'none';
 
       // Clear track, insert exactly 3 cards in order
       track.innerHTML = '';
@@ -513,12 +487,17 @@ document.addEventListener('DOMContentLoaded', () => {
         track.appendChild(card);
       });
 
-      // Reset transform (always starts at 0 since we re-order DOM)
-      track.style.transform = 'translateX(0)';
-
-      if (!animate) {
-        track.getBoundingClientRect(); // force reflow
-        track.style.transition = 'transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+      // Incoming row: starts off to the side (faded), then slides into place.
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(0)';
+      track.style.opacity    = '1';
+      if (animate) {
+        track.style.transform = 'translateX(' + ((dir || 1) * SHIFT) + '%)';
+        track.style.opacity   = '0';
+        track.getBoundingClientRect(); // force reflow so the start state is applied
+        track.style.transition = 'transform ' + IN_MS + 'ms cubic-bezier(0.22,0.61,0.36,1), opacity ' + IN_MS + 'ms ease';
+        track.style.transform  = 'translateX(0)';
+        track.style.opacity    = '1';
       }
 
       // Update nav
@@ -526,11 +505,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function goTo(idx) {
-      cur = ((idx % TOTAL) + TOTAL) % TOTAL;
-      render(cur, true);
+      const dir  = idx > cur ? 1 : -1;
+      const next = ((idx % TOTAL) + TOTAL) % TOTAL;
+      if (next === cur) return;
+      cur = next;
+      navItems.forEach((n, i) => n.classList.toggle('active', i === cur));
+      clearTimeout(swapTimer);
+      // 1) current row slides out (against the direction of travel)
+      track.style.transition = 'transform ' + OUT_MS + 'ms ease-in, opacity ' + OUT_MS + 'ms ease-in';
+      track.style.transform  = 'translateX(' + (-dir * SHIFT) + '%)';
+      track.style.opacity    = '0';
+      // 2) swap the cards while they are invisible, then slide the new row in
+      swapTimer = setTimeout(() => { swapTimer = null; render(cur, true, dir); }, OUT_MS);
     }
 
-    function start()   { timer = setInterval(() => goTo(cur + 1), 4500); }
+    function start()   { stop(); timer = setInterval(() => goTo(cur + 1), AUTO_MS); }
     function stop()    { clearInterval(timer); }
     function restart() { stop(); start(); }
 
@@ -550,12 +539,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (card.classList.contains('exp-peek-right')) { goTo(cur + 1); restart(); }
     });
 
-    // Pause on hover
-    const section = document.getElementById('expertise');
-    if (section) {
-      section.addEventListener('mouseenter', stop);
-      section.addEventListener('mouseleave', start);
-    }
+    // Pause only while the visitor is hovering the centre (active) card
+    track.addEventListener('mouseover', e => {
+      const card = e.target.closest('.exp-card');
+      if (card && !card.classList.contains('exp-peek')) stop();
+    });
+    track.addEventListener('mouseout', e => {
+      const card = e.target.closest('.exp-card');
+      if (card && !card.classList.contains('exp-peek') && !card.contains(e.relatedTarget)) start();
+    });
   })();
 
   /* ── Industries Ticker — pause on hover, arrows ───────── */

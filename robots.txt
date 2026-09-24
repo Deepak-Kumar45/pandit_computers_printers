@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://panditcomputers.example.com/sitemap.xml

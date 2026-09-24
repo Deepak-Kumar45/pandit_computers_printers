@@ -630,102 +630,122 @@ function getRelatedServices(slugs) {
   return slugs.map(s => serviceData[s]).filter(Boolean);
 }
 
-// ─── RENDER DETAIL PAGE ──────────────────────────────────────────────────────
+// ─── RENDER DETAIL PAGE ─────────────────────────────────────────────────────
 function renderServiceDetail() {
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('s');
+  const params  = new URLSearchParams(window.location.search);
+  const slug    = params.get('s');
   const service = serviceData[slug];
 
+  const contentEl  = document.getElementById('sdContent');
+  const notFoundEl = document.getElementById('sdNotFound');
+  const relatedEl  = document.getElementById('sdRelated');
+
   if (!service) {
-    document.getElementById('sdContent').innerHTML = `
-      <div style="text-align:center;padding:80px 20px;">
-        <div style="font-size:3rem;margin-bottom:16px;">🔍</div>
-        <h2 style="margin-bottom:12px;">Service not found</h2>
-        <p style="color:#6B7280;margin-bottom:24px;">The service you're looking for doesn't exist.</p>
-        <a href="services.html" class="btn-primary">← Back to All Services</a>
-      </div>`;
+    if (notFoundEl) notFoundEl.style.display = 'flex';
     return;
   }
 
+  // Show content
+  if (contentEl)  contentEl.style.display  = 'grid';
+  if (relatedEl)  relatedEl.style.display  = 'block';
+
+  // Page title
+  document.title = service.name + ' | Pandit Computers & Printers';
+  const pageTitleEl = document.getElementById('pageTitle');
+  if (pageTitleEl) pageTitleEl.textContent = service.name + ' | Pandit Computers & Printers';
+
   // Breadcrumb
-  document.getElementById('sdBreadcrumb').innerHTML = `
-    <a href="index.html">Home</a>
-    <span>/</span>
-    <a href="services.html">Services</a>
-    <span>/</span>
-    <a href="services.html#${service.categorySlug}">${service.category}</a>
-    <span>/</span>
-    <span class="current">${service.name}</span>`;
+  const bcCat  = document.getElementById('bcCategory');
+  const bcName = document.getElementById('bcName');
+  if (bcCat)  { bcCat.textContent = service.category; bcCat.href = 'services.html'; }
+  if (bcName) bcName.textContent = service.name;
 
-  document.getElementById('sdPageTitle').textContent = service.name;
-  document.getElementById('sdPageSub').textContent = `${service.category} · Pandit Computers & Printers, Bulandshahr`;
-  document.title = `${service.name} | Pandit Computers & Printers`;
+  // Category tag
+  const catEl = document.getElementById('sdCategory');
+  if (catEl) catEl.textContent = service.category;
 
-  // Images (emoji placeholders)
-  const imgHtml = service.images.map((em, i) => `
-    <div class="sd-thumb ${i === 0 ? 'sd-thumb-active' : ''}" onclick="sdSetImg(${i})" data-idx="${i}">
-      <div class="sd-thumb-inner">${em}</div>
-    </div>`).join('');
+  // Title
+  const titleEl = document.getElementById('sdTitle');
+  if (titleEl) titleEl.textContent = service.name;
 
-  const mainEm = service.images[0];
+  // Price
+  const priceEl    = document.getElementById('sdPrice');
+  const priceTabEl = document.getElementById('sdPriceTab');
+  if (priceEl    && service.startingPrice) priceEl.textContent = service.startingPrice;
+  if (priceTabEl && service.startingPrice) priceTabEl.textContent = service.startingPrice;
 
-  // Features
-  const featHtml = service.features.map(f => `<li>✓ ${f}</li>`).join('');
+  // Turnaround
+  const taEl = document.getElementById('sdTurnaround');
+  if (taEl && service.turnaround) taEl.textContent = service.turnaround;
 
-  // Related cards
-  const related = getRelatedServices(service.related);
-  const relHtml = related.map(r => `
-    <a href="service-detail.html?s=${Object.keys(serviceData).find(k => serviceData[k] === r)}" class="sd-rel-card">
-      <div class="sd-rel-icon">${r.icon}</div>
-      <div class="sd-rel-name">${r.name}</div>
-      <div class="sd-rel-cat">${r.category}</div>
-    </a>`).join('');
+  // Main image emoji
+  const mainEmoji = document.getElementById('sdMainEmoji');
+  if (mainEmoji && service.images && service.images[0]) {
+    mainEmoji.textContent = service.images[0];
+  }
 
-  document.getElementById('sdContent').innerHTML = `
-    <div class="sd-main">
-      <!-- Left: Images -->
-      <div class="sd-left">
-        <div class="sd-main-img" id="sdMainImg">${mainEm}</div>
-        <div class="sd-thumbs" id="sdThumbs">${imgHtml}</div>
-      </div>
+  // Badge
+  const badgeEl = document.getElementById('sdImgBadge');
+  if (badgeEl && service.tag) {
+    badgeEl.textContent = service.tag;
+    badgeEl.style.display = 'block';
+  }
 
-      <!-- Right: Info -->
-      <div class="sd-right">
-        ${service.tag ? `<div class="sd-tag">${service.tag}</div>` : ''}
-        <h1 class="sd-title">${service.name}</h1>
-        <div class="sd-meta">
-          <span>📂 ${service.category}</span>
-          ${service.startingPrice ? `<span>💰 Starting ${service.startingPrice}</span>` : ''}
-          ${service.turnaround ? `<span>⏱️ ${service.turnaround}</span>` : ''}
+  // Thumbnails
+  const thumbRow = document.getElementById('sdThumbs');
+  if (thumbRow && service.images) {
+    thumbRow.innerHTML = service.images.map((em, i) =>
+      `<div class="sd-thumb${i===0?' active':''}" onclick="sdSetImg(${i},'${slug}')">${em}</div>`
+    ).join('');
+  }
+
+  // Overview tab — description
+  const descEl = document.getElementById('sdDesc');
+  if (descEl) descEl.textContent = service.desc || '';
+
+  // Features list
+  const featEl = document.getElementById('sdFeatures');
+  if (featEl && service.features) {
+    featEl.innerHTML = service.features.map(f => `<li>${f}</li>`).join('');
+  }
+
+  // Specs tab
+  const specsEl = document.getElementById('sdSpecs');
+  if (specsEl && service.specs) {
+    specsEl.innerHTML = Object.entries(service.specs).map(([k,v]) =>
+      `<div class="sd-spec-item">
+        <div class="sd-spec-label">${k}</div>
+        <div class="sd-spec-value">${v}</div>
+      </div>`
+    ).join('');
+  }
+
+  // Related services
+  const relGridEl = document.getElementById('sdRelatedGrid');
+  if (relGridEl && service.related) {
+    const related = getRelatedServices(service.related);
+    relGridEl.innerHTML = related.map(r => {
+      const rSlug = Object.keys(serviceData).find(k => serviceData[k] === r) || '#';
+      return `<a href="service-detail.html?s=${rSlug}" class="sd-related-card">
+        <div class="sd-related-img">${r.images ? r.images[0] : '🖨️'}</div>
+        <div class="sd-related-info">
+          <div class="sd-related-name">${r.name}</div>
+          <div class="sd-related-price">${r.startingPrice ? 'From ' + r.startingPrice : ''}</div>
+          <div class="sd-related-cta">View Details →</div>
         </div>
-        <p class="sd-desc">${service.desc}</p>
-        <ul class="sd-features">${featHtml}</ul>
-        <div class="sd-actions">
-          <a href="contact.html#contact-form?service=${encodeURIComponent(service.name)}"
-            class="btn-primary sd-btn-quote">Get a Quote →</a>
-          <a href="https://wa.me/918171294045?text=Hi%2C%20I%20am%20interested%20in%20${encodeURIComponent(service.name)}"
-            target="_blank" class="sd-btn-wa">💬 WhatsApp Us</a>
-        </div>
-        <div class="sd-info-row">
-          <div>📍 <strong>684/18 Kailashpuri, Bulandshahr</strong></div>
-          <div>📞 <strong>+91 81712 94045</strong></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Related Services -->
-    <div class="sd-related">
-      <h3 class="sd-related-title">Related Services</h3>
-      <div class="sd-related-grid">${relHtml}</div>
-    </div>`;
+      </a>`;
+    }).join('');
+  }
 }
 
-function sdSetImg(idx) {
+function sdSetImg(idx, slug) {
+  const service = serviceData[slug];
+  if (!service || !service.images) return;
+  const mainEmoji = document.getElementById('sdMainEmoji');
+  if (mainEmoji) mainEmoji.textContent = service.images[idx];
   document.querySelectorAll('.sd-thumb').forEach((t, i) => {
-    t.classList.toggle('sd-thumb-active', i === idx);
+    t.classList.toggle('active', i === idx);
   });
-  const service = serviceData[new URLSearchParams(window.location.search).get('s')];
-  if (service) document.getElementById('sdMainImg').textContent = service.images[idx];
 }
 
 document.addEventListener('DOMContentLoaded', renderServiceDetail);

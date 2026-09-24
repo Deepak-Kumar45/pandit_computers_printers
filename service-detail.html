@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Service Detail | Pandit Computers & Printers</title>
-<meta name="description" content="Service details at Pandit Computers & Printers, Bulandshahr.">
+<title id="pageTitle">Service | Pandit Computers &amp; Printers</title>
+<meta name="description" content="Premium printing and branding service at Pandit Computers & Printers, Bulandshahr.">
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-<link rel="shortcut icon" href="assets/icons/favicon.svg">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/service-detail.css">
 </head>
 <body>
 
 <div id="page-loader">
   <img src="assets/logo/logo_svg_navbar.svg" alt="Pandit Computers &amp; Printers" class="loader-logo-img">
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-</div>
-</div>
 </div>
 
 <header class="navbar">
@@ -445,41 +443,245 @@
   </div>
 </header>
 
-<!-- Breadcrumb -->
-<section class="breadcrumb">
-  <div class="breadcrumb-inner">
-    <div class="breadcrumb-nav" id="sdBreadcrumb">
-      <a href="index.html">Home</a><span>/</span>
-      <a href="services.html">Services</a><span>/</span>
-      <span class="current">Loading…</span>
-    </div>
-    <h1 id="sdPageTitle">Loading service…</h1>
-    <p id="sdPageSub"></p>
-  </div>
-</section>
-
-<!-- Dynamic Content -->
-<div class="section">
-  <div class="section-inner">
-    <div id="sdContent">
-      <div style="text-align:center;padding:60px 0;">
-        <div class="sd-loader">Loading…</div>
-      </div>
-    </div>
+<!-- ═══ BREADCRUMB ═══ -->
+<div class="sd-breadcrumb">
+  <div class="sd-breadcrumb-inner">
+    <nav class="sd-bc-nav">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="services.html">Services</a>
+      <span>/</span>
+      <a href="services.html" id="bcCategory">Loading...</a>
+      <span>/</span>
+      <span id="bcName" class="sd-bc-current">Loading...</span>
+    </nav>
   </div>
 </div>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-inner">
-    <h2 class="cta-title">Ready to Place an Order?</h2>
-    <p class="cta-sub">Walk in, call us, or send a message — we're ready to help.</p>
-    <div class="cta-actions">
-      <a href="contact.html#contact-form" class="btn-primary" style="background:#fff;color:var(--blue);">Get a Quote →</a>
-      <a href="tel:+918171294045" class="btn-cta-call">📞 Call +91 81712 94045</a>
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="sd-layout" id="sdContent" style="display:none;">
+
+  <!-- LEFT: Image Gallery -->
+  <div class="sd-gallery">
+    <div class="sd-main-img" id="sdMainImg">
+      <span class="sd-main-emoji" id="sdMainEmoji">📇</span>
+      <div class="sd-img-badge" id="sdImgBadge"></div>
+    </div>
+    <div class="sd-thumb-row" id="sdThumbs"></div>
+  </div>
+
+  <!-- CENTER: Product Info -->
+  <div class="sd-info">
+    <div class="sd-info-top">
+      <span class="sd-category-tag" id="sdCategory">Loading...</span>
+      <h1 class="sd-title" id="sdTitle">Loading service...</h1>
+
+      <!-- Rating -->
+      <div class="sd-rating-row">
+        <div class="sd-stars">★★★★★</div>
+        <span class="sd-rating-num">4.8</span>
+        <span class="sd-rating-count">(120+ reviews)</span>
+      </div>
+
+      <!-- Feature pills -->
+      <div class="sd-feature-pills">
+        <div class="sd-pill">🏆<span>Premium<br>Quality</span></div>
+        <div class="sd-pill">🎨<span>Multiple<br>Designs</span></div>
+        <div class="sd-pill">📦<span>Bulk Order<br>Discount</span></div>
+        <div class="sd-pill">🚀<span>Fast<br>Delivery</span></div>
+      </div>
+
+      <!-- Price -->
+      <div class="sd-price-row">
+        <span class="sd-price-label">Starting from</span>
+        <span class="sd-price" id="sdPrice">₹199</span>
+        <span class="sd-price-note">(Price may vary based on size, paper and quantity)</span>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="sd-cta-grid">
+        <a href="contact.html#contact-form" class="sd-cta-primary">Get a Quote →</a>
+        <a href="https://wa.me/919XXXXXXXXX" class="sd-cta-whatsapp" target="_blank">💬 Chat on WhatsApp</a>
+        <a href="tel:+919XXXXXXXXX" class="sd-cta-call">📞 Call Now</a>
+        <a href="mailto:panditcomputers@gmail.com" class="sd-cta-email">📧 Send an Email</a>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="sd-tabs">
+      <div class="sd-tab-nav">
+        <button class="sd-tab-btn active" data-tab="overview">Overview</button>
+        <button class="sd-tab-btn" data-tab="specs">Key Specs</button>
+        <button class="sd-tab-btn" data-tab="pricing">Pricing</button>
+        <button class="sd-tab-btn" data-tab="delivery">Delivery</button>
+        <button class="sd-tab-btn" data-tab="faq">FAQ</button>
+      </div>
+
+      <!-- Overview Tab -->
+      <div class="sd-tab-content active" id="tab-overview">
+        <h3>Product Overview</h3>
+        <p id="sdDesc">Loading...</p>
+        <ul class="sd-features-list" id="sdFeatures"></ul>
+        <blockquote class="sd-quote">
+          "Your business card is often the first impression you make.<br>Let's make it count."
+          <cite>— Pandit Computers &amp; Printers</cite>
+        </blockquote>
+      </div>
+
+      <!-- Specs Tab -->
+      <div class="sd-tab-content" id="tab-specs">
+        <h3>Key Specifications</h3>
+        <div class="sd-specs-grid" id="sdSpecs"></div>
+      </div>
+
+      <!-- Pricing Tab -->
+      <div class="sd-tab-content" id="tab-pricing">
+        <h3>Pricing Information</h3>
+        <div class="sd-pricing-table">
+          <div class="sd-price-row-item">
+            <span>Starting Price</span>
+            <span id="sdPriceTab">₹199</span>
+          </div>
+          <div class="sd-price-row-item">
+            <span>Bulk Discount</span>
+            <span>Available on 500+ orders</span>
+          </div>
+          <div class="sd-price-row-item">
+            <span>Custom Quote</span>
+            <span>Contact us for exact pricing</span>
+          </div>
+          <div class="sd-price-row-item">
+            <span>GST</span>
+            <span>Included in price</span>
+          </div>
+        </div>
+        <p class="sd-price-note-lg">Final price depends on quantity, paper type, size and finish. <a href="contact.html">Contact us</a> for a custom quote.</p>
+      </div>
+
+      <!-- Delivery Tab -->
+      <div class="sd-tab-content" id="tab-delivery">
+        <h3>Delivery Information</h3>
+        <div class="sd-delivery-grid">
+          <div class="sd-delivery-item">
+            <div class="sd-delivery-icon">⚡</div>
+            <div>
+              <strong>Same Day</strong>
+              <p>Available for select orders placed before 12 PM</p>
+            </div>
+          </div>
+          <div class="sd-delivery-item">
+            <div class="sd-delivery-icon">📍</div>
+            <div>
+              <strong>Local Pickup</strong>
+              <p>684/18 Kailashpuri, Bulandshahr</p>
+            </div>
+          </div>
+          <div class="sd-delivery-item">
+            <div class="sd-delivery-icon">📦</div>
+            <div>
+              <strong>Pan India Delivery</strong>
+              <p>Courier delivery across India for bulk orders</p>
+            </div>
+          </div>
+          <div class="sd-delivery-item">
+            <div class="sd-delivery-icon">🕐</div>
+            <div>
+              <strong>Turnaround</strong>
+              <p id="sdTurnaround">2–4 hours (standard orders)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Tab -->
+      <div class="sd-tab-content" id="tab-faq">
+        <h3>Frequently Asked Questions</h3>
+        <div class="sd-faq-list">
+          <div class="sd-faq-item">
+            <button class="sd-faq-q">Can I get a custom size? <span>+</span></button>
+            <div class="sd-faq-a">Yes! We can print in any custom size. Contact us with your requirements and we'll give you a quote.</div>
+          </div>
+          <div class="sd-faq-item">
+            <button class="sd-faq-q">What file format should I send? <span>+</span></button>
+            <div class="sd-faq-a">We accept PDF, AI, PSD, CDR and high-resolution JPG/PNG files (300 DPI minimum).</div>
+          </div>
+          <div class="sd-faq-item">
+            <button class="sd-faq-q">Do you offer design services? <span>+</span></button>
+            <div class="sd-faq-a">Yes! Our in-house design team can create designs for you at an additional charge. Contact us for details.</div>
+          </div>
+          <div class="sd-faq-item">
+            <button class="sd-faq-q">What is the minimum order quantity? <span>+</span></button>
+            <div class="sd-faq-a">Minimum order varies by product — usually 50–100 units. Bulk orders get special discounts.</div>
+          </div>
+          <div class="sd-faq-item">
+            <button class="sd-faq-q">Do you deliver outside Bulandshahr? <span>+</span></button>
+            <div class="sd-faq-a">Yes! We deliver Pan India via courier for bulk orders. Local pickup is available at our shop.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- RIGHT: Sidebar -->
+  <aside class="sd-sidebar">
+    <!-- Why Choose Us -->
+    <div class="sd-why-box">
+      <h4>Why Choose Us?</h4>
+      <ul class="sd-why-list">
+        <li>✅ High-quality printing</li>
+        <li>✅ Custom designs &amp; finishes</li>
+        <li>✅ Bulk Order Discounts</li>
+        <li>✅ Fast turnaround time</li>
+        <li>✅ Pan India delivery</li>
+      </ul>
+    </div>
+
+    <!-- Need Help -->
+    <div class="sd-help-box">
+      <div class="sd-help-icon">🙋</div>
+      <h4>Need Help?</h4>
+      <p>Our team is here to help you choose the right options.</p>
+      <a href="contact.html" class="sd-help-btn">Talk to Our Expert →</a>
+    </div>
+
+    <!-- Custom Design -->
+    <div class="sd-box sd-design-box">
+      <div class="sd-box-icon">🎨</div>
+      <h4>Need a Custom Design?</h4>
+      <p>Our design experts will create a unique design for your brand.</p>
+      <a href="contact.html" class="sd-box-btn">Request Design Support →</a>
+    </div>
+
+    <!-- Bulk Order -->
+    <div class="sd-box sd-bulk-box">
+      <div class="sd-box-icon">📦</div>
+      <h4>Bulk Order?</h4>
+      <p>Contact us for special pricing for bulk quantities.</p>
+      <a href="contact.html#contact-form" class="sd-box-btn">Request a Quote →</a>
+    </div>
+  </aside>
+
+</div><!-- /sd-layout -->
+
+<!-- ═══ RELATED SERVICES ═══ -->
+<section class="sd-related" id="sdRelated" style="display:none;">
+  <div class="sd-related-inner">
+    <div class="sd-related-header">
+      <h2>Related Services</h2>
+      <p>Explore more products that go well with this service</p>
+      <a href="services.html" class="sd-view-all">View All Services →</a>
+    </div>
+    <div class="sd-related-grid" id="sdRelatedGrid"></div>
+  </div>
 </section>
+
+<!-- ═══ NOT FOUND ═══ -->
+<div class="sd-not-found" id="sdNotFound" style="display:none;">
+  <div class="sd-nf-icon">🔍</div>
+  <h3>Service not found</h3>
+  <p>The service you're looking for doesn't exist.</p>
+  <a href="services.html" class="sd-nf-btn">← Back to All Services</a>
+</div>
 
 <footer>
   <div class="footer-grid">
@@ -574,8 +776,46 @@
   </div>
 </div>
 
+
+
 <script src="js/service-data.js"></script>
 <script src="js/service-detail.js"></script>
 <script src="js/main.js"></script>
+<script>
+// ── Tab switching ──────────────────────────────────────────
+document.querySelectorAll('.sd-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sd-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.sd-tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── FAQ accordion ──────────────────────────────────────────
+document.querySelectorAll('.sd-faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.sd-faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+    btn.querySelector('span').textContent = item.classList.contains('open') ? '−' : '+';
+  });
+});
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6aad0b391afbcd3440d9917b/1k2pv7mfo';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
 </body>
 </html>

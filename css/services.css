@@ -69,7 +69,7 @@
 /* ── Layout: sidebar + main ───────────────────────────────── */
 .svc-layout {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 280px 1fr;
   gap: 0;
   max-width: 100%;
   min-height: 70vh;
@@ -194,7 +194,7 @@
 /* ── Product Grid ─────────────────────────────────────────── */
 .svc-product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
@@ -291,8 +291,8 @@
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .svc-layout { grid-template-columns: 200px 1fr; }
-  .svc-product-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .svc-layout { grid-template-columns: 240px 1fr; }
+  .svc-product-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
   .svc-hero { grid-template-columns: 1fr; }

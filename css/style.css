@@ -130,8 +130,8 @@ ul { list-style: none; }
 }
 .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,111,217,0.38); }
 .nav-toggle {
-  display: none; flex-direction: column; gap: 5px; cursor: pointer;
-  padding: 5px; background: none; border: none;
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  cursor: pointer; width: 44px; height: 44px; padding: 0; background: none; border: none;
 }
 .mobile-actions { display: none; align-items: center; gap: 8px; }
 .nav-toggle span {
@@ -384,13 +384,18 @@ ul { list-style: none; }
   display: flex; gap: 8px; z-index: 10;
 }
 .hs-dot-btn {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.hs-dot-btn::before {
+  content: '';
   width: 8px; height: 8px;
   border-radius: 99px;
   background: rgba(10,22,40,0.25);
-  border: none; cursor: pointer; padding: 0;
   transition: background 0.25s, width 0.25s;
 }
-.hs-dot-btn.active {
+.hs-dot-btn.active::before {
   background: var(--blue);
   width: 28px;
 }
@@ -678,9 +683,9 @@ ul { list-style: none; }
   border-color: var(--blue); background: var(--blue);
   box-shadow: 0 4px 16px rgba(26,95,216,0.3);
 }
-.exp-nav-lbl { font-size: 0.68rem; font-weight: 600; color: var(--slate); text-align: center; line-height: 1.4; }
+.exp-nav-lbl { font-size: 0.75rem; font-weight: 600; color: var(--slate); text-align: center; line-height: 1.4; }
 .exp-nav-item.active .exp-nav-lbl { color: var(--blue); font-weight: 700; }
-.exp-nav-num { font-size: 0.65rem; font-weight: 700; color: #94a3b8; letter-spacing: 0.06em; }
+.exp-nav-num { font-size: 0.75rem; font-weight: 700; color: #94a3b8; letter-spacing: 0.06em; }
 .exp-nav-item.active .exp-nav-num { color: var(--blue); }
 .exp-nav-line { width: 28px; height: 1.5px; background: #c8d8f8; flex-shrink: 0; margin-bottom: 24px; }
 
@@ -700,7 +705,7 @@ ul { list-style: none; }
   .exp-card-title { font-size: 1.4rem; }
   .exp-nav-item { min-width: 60px; padding: 8px 8px; }
   .exp-nav-circle { width: 40px; height: 40px; font-size: 1rem; }
-  .exp-nav-lbl { font-size: 0.58rem; }
+  .exp-nav-lbl { font-size: 0.75rem; }
   .exp-nav-line { width: 14px; }
 }
 
@@ -985,8 +990,8 @@ footer {
 }
 .social-link:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
 .footer-col h4 { font-weight: 700; color: #fff; margin-bottom: 16px; font-size: 0.9rem; }
-.footer-col ul { display: flex; flex-direction: column; gap: 8px; }
-.footer-col ul li a { font-size: 0.85rem; color: rgba(255,255,255,0.6); transition: var(--transition); }
+.footer-col ul { display: flex; flex-direction: column; gap: 2px; }
+.footer-col ul li a { display: inline-block; padding: 6px 0; font-size: 0.85rem; color: rgba(255,255,255,0.6); transition: var(--transition); }
 .footer-col ul li a:hover { color: var(--blue-light); }
 /* Contact info column — icon + text on one line, no wrap */
 .footer-contact-list { list-style: none; }
@@ -1143,7 +1148,7 @@ footer {
   margin: 0 auto 10px;
 }
 .ind-card-items {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: rgba(255,255,255,0.8);
   line-height: 1.6; margin: 0;
 }
@@ -1259,7 +1264,7 @@ footer {
   background: rgba(30,111,217,0.08);
   border: 1px solid rgba(30,111,217,0.2);
   color: var(--blue);
-  font-size: 0.72rem; font-weight: 700;
+  font-size: 0.8rem; font-weight: 700;
   letter-spacing: 0.04em;
   padding: 5px 12px;
   border-radius: 99px;
@@ -1279,6 +1284,7 @@ footer {
   color: var(--blue);
   text-decoration: none;
   margin-top: auto;
+  padding: 8px 0;
   transition: gap 0.2s;
 }
 .about-card-link:hover { gap: 10px; }
@@ -1641,7 +1647,7 @@ footer {
   .section { padding: 60px 5%; }
   .form-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; padding-bottom: 200px; }
   .gallery-masonry { columns: 2; }
   .search-overlay { padding-top: 90px; }
 }

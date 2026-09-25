@@ -138,7 +138,7 @@
   display: block;
 }
 .ab-polaroid-label {
-  font-size: 0.68rem; color: #555;
+  font-size: 0.75rem; color: #555;
   text-align: center; margin-top: 8px;
   font-family: Georgia, serif; font-style: italic;
 }
@@ -153,7 +153,7 @@
   padding: 22px 20px;
   display: flex; flex-direction: column; gap: 16px;
 }
-.ab-stat-item { display: flex; align-items: flex-start; gap: 14px; }
+.ab-stat-item { display: flex; align-items: flex-start; gap: 14px; min-width: 0; }
 .ab-stat-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
 .ab-stat-num {
   font-family: var(--font-display);
@@ -163,6 +163,7 @@
 .ab-stat-lbl {
   font-size: 0.78rem; color: var(--slate);
   line-height: 1.5; margin-top: 3px;
+  min-width: 0; flex: 1;
 }
 
 /* ═══ WHY CHOOSE US ══════════════════════════════════════ */
@@ -353,7 +354,7 @@
   .ab-cta-content { padding: 36px 24px; }
   .ab-why-grid { grid-template-columns: 1fr 1fr; }
   .ab-value-item { flex: 0 0 100%; }
-  .ab-stat-item { flex: 0 0 45%; }
+  .ab-stat-item { flex: 0 0 100%; }
 }
 
 /* ─── About page: tighter section padding ─────────────── */

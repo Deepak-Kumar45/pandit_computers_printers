@@ -631,6 +631,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let hsTimer = null;
     const TOTAL = hsSlides.length;
 
+    const hsTrack = document.querySelector('.hs-track');
+    function hsSyncHeight() {
+      if (!hsTrack) return;
+      if (window.innerWidth > 900) { hsTrack.style.height = ''; return; } // desktop: CSS handles it
+      const slide = hsSlides[hsCur];
+      const imageWrap = slide.querySelector('.hs-image-wrap');
+      if (!imageWrap) return;
+      const h = Math.ceil(imageWrap.getBoundingClientRect().bottom - slide.getBoundingClientRect().top);
+      if (h > 0) hsTrack.style.height = h + 'px';
+    }
+
     function hsGoTo(idx) {
       if (idx < 0) idx = TOTAL - 1;
       if (idx >= TOTAL) idx = 0;
@@ -641,6 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hsSlides[hsCur].classList.add('active');
       hsDots[hsCur].classList.add('active');
       hsDots[hsCur].setAttribute('aria-selected', 'true');
+      hsSyncHeight();
       if (hsCurrentEl) hsCurrentEl.textContent = String(hsCur + 1).padStart(2, '0');
       // Animate counters in active slide
       hsSlides[hsCur].querySelectorAll('[data-counter]').forEach(el => {
@@ -661,6 +673,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Init
     hsGoTo(0);
     hsStart();
+
+    let hsResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(hsResizeTimer);
+      hsResizeTimer = setTimeout(hsSyncHeight, 150);
+    });
 
     // Arrows
     if (hsPrevBtn) hsPrevBtn.addEventListener('click', () => { hsGoTo(hsCur - 1); hsRestart(); });

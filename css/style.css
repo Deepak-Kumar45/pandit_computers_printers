@@ -413,7 +413,12 @@ ul { list-style: none; }
 
 /* ── Responsive ────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .hs-slide { grid-template-columns: 1fr; grid-template-rows: auto 40vw; }
+  /* Height now fits each slide's real content exactly (set by JS) instead
+     of a fixed/100vh box, which used to leave a dead gap of unused
+     background below the image on many phones. */
+  .hero-slider { min-height: auto; }
+  .hs-track { height: auto; min-height: 700px; }
+  .hs-slide { grid-template-columns: 1fr; grid-template-rows: auto 40vw; align-content: start; }
   .hs-content { padding: 48px 6% 28px; }
   .hs-image-wrap { height: 40vw; min-height: 200px; }
   .hs-img-overlay { background: linear-gradient(180deg, #F0F4FA 0%, transparent 30%); }
@@ -421,8 +426,6 @@ ul { list-style: none; }
   .hs-product-grid { grid-template-columns: repeat(4,1fr); padding: 16px; gap: 8px; }
 }
 @media (max-width: 600px) {
-  .hs-track { min-height: 720px; height: auto; }
-  .hs-slide { min-height: 720px; }
   .hs-title { font-size: clamp(1.8rem, 7vw, 2.6rem); }
   .hs-stats { gap: 18px; }
   .hs-stat-num { font-size: 1.35rem; }

@@ -29,6 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', handleScroll);
   handleScroll();
 
+  /*  Hide floating buttons once the footer's bottom row is in view
+      (so they never sit on top of the last footer links)  */
+  const floatButtons = document.querySelector('.float-buttons');
+  const footerBottom  = document.querySelector('.footer-bottom');
+  if (floatButtons && footerBottom && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      entries => entries.forEach(e => floatButtons.classList.toggle('near-footer', e.isIntersecting)),
+      { rootMargin: '0px 0px -40px 0px' }
+    ).observe(footerBottom);
+  }
+
   /* ── Mobile Menu Toggle ───────────────────────────────── */
   const navToggle = document.querySelector('.nav-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');

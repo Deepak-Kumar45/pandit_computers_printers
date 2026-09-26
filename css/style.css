@@ -506,7 +506,17 @@ ul { list-style: none; }
 .exp-slider-wrap { position: relative; padding: 0 56px; }
 
 /* Viewport — clips overflow */
-.exp-viewport { overflow: hidden; border-radius: 24px; }
+.exp-viewport {
+  overflow: hidden; border-radius: 24px;
+}
+@media (max-width: 900px) {
+  /* Peek cards clip their own text at their edge; fade each one on both
+     sides so the cut-off word softens instead of stopping mid-letter. */
+  .exp-card.exp-peek {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-image:         linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  }
+}
 
 /* Track — always holds exactly 3 cards */
 .exp-track {
@@ -944,7 +954,9 @@ textarea.form-input { resize: vertical; min-height: 130px; }
 .float-buttons {
   position: fixed; bottom: 24px; right: 24px; z-index: 900;
   display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  transition: opacity 0.25s, transform 0.25s;
 }
+.float-buttons.near-footer { opacity: 0; transform: translateY(12px); pointer-events: none; }
 .float-btn {
   width: 52px; height: 52px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -1181,10 +1193,16 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .ind-card { flex: 0 0 190px; width: 190px; height: 290px; }
+  .ind-card { flex: 0 0 190px; width: 190px; height: 300px; }
+  /* Cap the item list so a 2-line title + long text can never grow tall
+     enough to reach the icon (was overlapping on some cards/widths). */
+  .ind-card-items {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
 }
 @media (max-width: 480px) {
-  .ind-card { flex: 0 0 165px; width: 165px; height: 260px; }
+  .ind-card { flex: 0 0 165px; width: 165px; height: 280px; }
   .ind-card-title { font-size: 0.88rem; }
   .ind-card-icon { width: 46px; height: 46px; font-size: 1.1rem; }
 }
@@ -1647,7 +1665,7 @@ footer {
   .section { padding: 60px 5%; }
   .form-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; padding-bottom: 200px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   .gallery-masonry { columns: 2; }
   .search-overlay { padding-top: 90px; }
 }

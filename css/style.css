@@ -705,21 +705,43 @@ ul { list-style: none; }
 /* Responsive */
 @media (max-width: 900px) {
   .exp-slider-wrap { padding: 0 44px; }
-  .exp-card { flex: 0 0 calc(70% - 10px); min-height: 300px; }
-  .exp-card.exp-peek { flex: 0 0 calc(20% - 10px); }
-  .exp-card-title { font-size: 1.6rem; }
+
+  /* Only the active card shows; it takes the full slider width */
+  .exp-track { grid-template-columns: 100%; }
+  .exp-card.exp-peek { display: none; }
+
+  /* Image on top, content below, in one clean card */
+  .exp-card { flex-direction: column; min-height: 0; }
+  .exp-card-right { order: -1; flex: none; height: 220px; }
+  .exp-card-left { flex: none; padding: 20px 20px 24px; gap: 12px; position: static; }
+  .exp-card-desc { max-width: none; }
+  .exp-card-title { font-size: 1.5rem; }
+
+  /* Icon + counter become a badge overlapping the image's corner */
+  .exp-card-top {
+    position: absolute; top: 14px; left: 14px; z-index: 3;
+    background: rgba(255,255,255,0.92); border-radius: 99px;
+    padding: 6px 14px 6px 6px; gap: 10px;
+    box-shadow: 0 4px 14px rgba(10,22,40,0.15);
+  }
+  .exp-ic-wrap { width: 40px; height: 40px; font-size: 1.15rem; border-radius: 50%; }
+
+  /* Drop decorative flourishes that only suit the wide desktop image */
+  .exp-card-right::before, .exp-card-right::after, .exp-watermark { display: none; }
+
+  /* Bottom step-nav becomes a plain dot indicator */
+  .exp-nav { padding: 22px 5% 0; gap: 8px; }
+  .exp-nav-item { padding: 4px; min-width: 0; }
+  .exp-nav-lbl, .exp-nav-num, .exp-nav-line { display: none; }
+  .exp-nav-circle {
+    width: 8px; height: 8px; border: none; background: #c8d8f8;
+    box-shadow: none; font-size: 0; transition: width 0.25s, background 0.25s;
+  }
+  .exp-nav-item.active .exp-nav-circle { width: 22px; border-radius: 99px; background: var(--blue); }
 }
 @media (max-width: 600px) {
   .exp-slider-wrap { padding: 0 36px; }
-  .exp-card { flex: 0 0 calc(90% - 10px); flex-direction: column; min-height: auto; }
-  .exp-card.exp-peek { flex: 0 0 calc(8% - 10px); }
-  .exp-card-left { padding: 24px 20px 20px; }
-  .exp-card-right { min-height: 200px; }
-  .exp-card-title { font-size: 1.4rem; }
-  .exp-nav-item { min-width: 60px; padding: 8px 8px; }
-  .exp-nav-circle { width: 40px; height: 40px; font-size: 1rem; }
-  .exp-nav-lbl { font-size: 0.75rem; }
-  .exp-nav-line { width: 14px; }
+  .exp-card-right { height: 190px; }
 }
 
 /* ─── Stats Banner ───────────────────────────────────────── */

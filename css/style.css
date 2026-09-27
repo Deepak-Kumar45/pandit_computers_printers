@@ -712,10 +712,10 @@ ul { list-style: none; }
 
   /* Image on top, content below, in one clean card */
   .exp-card { flex-direction: column; min-height: 0; }
-  .exp-card-right { order: -1; flex: none; height: 220px; }
-  .exp-card-left { flex: none; padding: 20px 20px 24px; gap: 12px; position: static; }
-  .exp-card-desc { max-width: none; }
-  .exp-card-title { font-size: 1.5rem; }
+  .exp-card-right { order: -1; flex: none; height: 260px; }
+  .exp-card-left { flex: none; padding: 24px 22px 28px; gap: 14px; position: static; }
+  .exp-card-desc { max-width: none; font-size: 0.95rem; }
+  .exp-card-title { font-size: 1.65rem; }
 
   /* Icon + counter become a badge overlapping the image's corner */
   .exp-card-top {
@@ -741,7 +741,7 @@ ul { list-style: none; }
 }
 @media (max-width: 600px) {
   .exp-slider-wrap { padding: 0 36px; }
-  .exp-card-right { height: 190px; }
+  .exp-card-right { height: 230px; }
 }
 
 /* ─── Stats Banner ───────────────────────────────────────── */
@@ -1004,6 +1004,37 @@ textarea.form-input { resize: vertical; min-height: 130px; }
   opacity: 0; pointer-events: none; transition: var(--transition);
 }
 .float-btn:hover .float-label { opacity: 1; }
+
+@media (max-width: 600px) {
+  /* Call + WhatsApp become a full-width horizontal bar pinned to the
+     bottom of the screen, each with its label always visible. */
+  .float-buttons {
+    left: 0; right: 0; bottom: 0; top: auto;
+    flex-direction: row; align-items: stretch; gap: 10px;
+    width: 100%;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    box-shadow: 0 -6px 24px rgba(10,22,40,0.14);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+  .float-buttons.near-footer { opacity: 1; transform: translateY(100%); }
+
+  .float-call, .float-wa {
+    flex: 1; width: auto; height: 50px; border-radius: 12px;
+    gap: 8px; font-size: 0.95rem; font-weight: 700;
+  }
+  .float-label {
+    position: static; opacity: 1; pointer-events: auto;
+    background: none; color: inherit; padding: 0;
+    font-size: inherit; font-weight: inherit;
+  }
+
+  /* Scroll-to-top stays a small circle, floating just above the bar */
+  .float-top {
+    position: fixed; right: 14px; bottom: 84px;
+    width: 40px; height: 40px; z-index: 901;
+  }
+}
 
 /* ─── Footer ─────────────────────────────────────────────── */
 footer {
